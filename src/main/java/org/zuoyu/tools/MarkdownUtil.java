@@ -118,7 +118,7 @@ public class MarkdownUtil {
         return;
       }
       if (commit.contains(COMMENT_PREFIX_FORMAT)) {
-        String comment = commit.substring(COMMENT_LENGTH + 1);
+        String comment = commit.substring(COMMENT_LENGTH);
         this.commit = "> - #### **提交说明**：" + comment;
         return;
       }

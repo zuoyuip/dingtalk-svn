@@ -16,12 +16,12 @@ import org.zuoyu.tools.MarkdownUtil;
 public class App {
 
   public static void main(String[] args) {
-    String project = System.getProperty("project");
-    String rev = System.getProperty("rev");
-    String date = System.getProperty("date");
-    String author = System.getProperty("author");
-    String commit = System.getProperty("commit");
-    String token = System.getProperty("token");
+    String project = System.getProperty("project").replaceAll("\"", "");
+    String rev = System.getProperty("rev").replaceAll("\"", "");
+    String date = System.getProperty("date").replaceAll("\"", "");
+    String author = System.getProperty("author").replaceAll("\"", "");
+    String commit = System.getProperty("commit").replaceAll("\"", "");
+    String token = System.getProperty("token").replaceAll("\"", "");
     String title = String.format("%s-%s", "代码提交", author);
     MarkdownUtil.Markdown customMarkdown = Builder.of(MarkdownUtil.Markdown::new)
         .with(MarkdownUtil.Markdown::setProject, project)

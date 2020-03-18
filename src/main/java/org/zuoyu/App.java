@@ -22,6 +22,7 @@ public class App {
     String author = System.getProperty("author");
     String commit = System.getProperty("commit");
     String token = System.getProperty("token");
+    String title = String.format("%s-%s", "代码提交", author);
     MarkdownUtil.Markdown customMarkdown = Builder.of(MarkdownUtil.Markdown::new)
         .with(MarkdownUtil.Markdown::setProject, project)
         .with(MarkdownUtil.Markdown::setRev, rev)
@@ -30,11 +31,22 @@ public class App {
         .with(MarkdownUtil.Markdown::setCommit, commit)
         .build();
     String markDownText = MarkdownUtil.toMarkDownText(customMarkdown);
-    Markdown markdown = DingTalk.constructMarkdown("代码提交", markDownText);
+    Markdown markdown = DingTalk.constructMarkdown(title, markDownText);
     try {
       DingTalk.robotSendRequest(token, markdown);
     } catch (ApiException e) {
       e.printStackTrace();
     }
   }
+
+//  {
+//    System.out.println("project:\t" + project);
+//    System.out.println("rev:\t" + rev);
+//    System.out.println("date:\t" + date);
+//    System.out.println("author:\t" + author);
+//    System.out.println("commit:\t" + commit);
+//    System.out.println("token:\t" + token);
+//    System.out.println("title:\t" + title);
+//    System.out.println("markDownText:\t" + markDownText);
+//  }
 }

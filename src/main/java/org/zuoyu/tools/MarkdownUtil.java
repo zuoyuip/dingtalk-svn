@@ -12,6 +12,14 @@ import java.io.File;
 public class MarkdownUtil {
 
   /**
+   * 提交说明的格式
+   */
+  private static final String COMMENT_PREFIX_FORMAT = "Comment：";
+
+  private static final int COMMENT_LENGTH = 8;
+
+
+  /**
    * 获取MarkDown文本
    *
    * @param markdown - Markdown对象
@@ -85,7 +93,9 @@ public class MarkdownUtil {
       if ("".equals(date)) {
         return;
       }
-      this.date = "> - #### **提交时间**：" + date + "\n";
+      String[] dataSplit = date.split("/");
+      String dateTime = String.format("%s %s %s", dataSplit[0], dataSplit[1], dataSplit[2]);
+      this.date = "> - #### **提交时间**：" + dateTime + "\n";
     }
 
     public String getAuthor() {
@@ -96,7 +106,7 @@ public class MarkdownUtil {
       if ("".equals(author)) {
         return;
       }
-      this.author = "> - #### **开发者**：" + author + "\n";
+      this.author = "> - #### **提交人员**：" + author + "\n";
     }
 
     public String getCommit() {
@@ -107,7 +117,12 @@ public class MarkdownUtil {
       if ("".equals(commit)) {
         return;
       }
-      this.commit = "> - #### **提交说明**：" + commit;
+      if (commit.contains(COMMENT_PREFIX_FORMAT)) {
+        String comment = commit.substring(COMMENT_LENGTH + 1);
+        this.commit = "> - #### **提交说明**：" + comment;
+        return;
+      }
+      this.commit = "> - #### **提交说明**：" + commit + "（该提交说明不规范！）";
     }
   }
 }

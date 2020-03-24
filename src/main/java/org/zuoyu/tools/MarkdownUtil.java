@@ -130,7 +130,7 @@ public class MarkdownUtil {
             if (commit.length() < COMMIT_SIZE){
                 content.append("\n").append("## **注意**：希望您下次提交说明写清楚！");
             }
-            this.commit = "### **提交说明**：" +commit.length() +  content.toString().replaceAll(SPACE, " ");
+            this.commit = "### **提交说明**：" +  content.toString().replaceAll(SPACE, " ");
         }
     }
 }

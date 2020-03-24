@@ -11,13 +11,6 @@ import java.io.File;
  **/
 public class MarkdownUtil {
 
-  /**
-   * 提交说明的格式
-   */
-  private static final String COMMENT_PREFIX_FORMAT = "Comment：";
-
-  private static final int COMMENT_LENGTH = 8;
-
 
   /**
    * 获取MarkDown文本
@@ -117,12 +110,7 @@ public class MarkdownUtil {
       if ("".equals(commit)) {
         return;
       }
-      if (commit.contains(COMMENT_PREFIX_FORMAT)) {
-        String comment = commit.substring(COMMENT_LENGTH);
-        this.commit = "> - #### **提交说明**：" + comment;
-        return;
-      }
-      this.commit = "> - #### **提交说明**：" + commit + "（该提交说明不规范！）";
+      this.commit = "> - #### **提交说明**：" + commit;
     }
   }
 }

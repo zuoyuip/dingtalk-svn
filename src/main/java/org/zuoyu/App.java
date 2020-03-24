@@ -3,7 +3,6 @@ package org.zuoyu;
 import com.dingtalk.api.request.OapiRobotSendRequest.Markdown;
 import com.taobao.api.ApiException;
 import org.zuoyu.client.DingTalk;
-import org.zuoyu.tools.Builder;
 import org.zuoyu.tools.MarkdownUtil;
 
 /**
@@ -15,29 +14,28 @@ import org.zuoyu.tools.MarkdownUtil;
  **/
 public class App {
 
-  public static void main(String[] args) {
-    String project = System.getProperty("project").replaceAll("\"", "");
-    String rev = System.getProperty("rev").replaceAll("\"", "");
-    String date = System.getProperty("date").replaceAll("\"", "");
-    String author = System.getProperty("author").replaceAll("\"", "");
-    String commit = System.getProperty("commit").replaceAll("\"", "");
-    String token = System.getProperty("token").replaceAll("\"", "");
-    String title = String.format("%s-%s", "代码提交", author);
-    MarkdownUtil.Markdown customMarkdown = Builder.of(MarkdownUtil.Markdown::new)
-        .with(MarkdownUtil.Markdown::setProject, project)
-        .with(MarkdownUtil.Markdown::setRev, rev)
-        .with(MarkdownUtil.Markdown::setDate, date)
-        .with(MarkdownUtil.Markdown::setAuthor, author)
-        .with(MarkdownUtil.Markdown::setCommit, commit)
-        .build();
-    String markDownText = MarkdownUtil.toMarkDownText(customMarkdown);
-    Markdown markdown = DingTalk.constructMarkdown(title, markDownText);
-    try {
-      DingTalk.robotSendRequest(token, markdown);
-    } catch (ApiException e) {
-      e.printStackTrace();
+    public static void main(String[] args) {
+        String project = System.getProperty("project").replaceAll("\"", "");
+        String rev = System.getProperty("rev").replaceAll("\"", "");
+        String date = System.getProperty("date").replaceAll("\"", "");
+        String author = System.getProperty("author").replaceAll("\"", "");
+        String commit = System.getProperty("commit").replaceAll("\"", "");
+        String token = System.getProperty("token").replaceAll("\"", "");
+        String title = String.format("%s-%s", "代码提交", author);
+        MarkdownUtil.Markdown customMarkdown = new MarkdownUtil.Markdown();
+        customMarkdown.setProject(project);
+        customMarkdown.setRev(rev);
+        customMarkdown.setDate(date);
+        customMarkdown.setAuthor(author);
+        customMarkdown.setCommit(commit);
+        String markDownText = MarkdownUtil.toMarkDownText(customMarkdown);
+        Markdown markdown = DingTalk.constructMarkdown(title, markDownText);
+        try {
+            DingTalk.robotSendRequest(token, markdown);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
     }
-  }
 
 //  {
 //    System.out.println("project:\t" + project);
